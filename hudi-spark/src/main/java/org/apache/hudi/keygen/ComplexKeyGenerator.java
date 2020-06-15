@@ -18,6 +18,7 @@
 
 package org.apache.hudi.keygen;
 
+import java.util.List;
 import org.apache.hudi.DataSourceUtils;
 import org.apache.hudi.DataSourceWriteOptions;
 import org.apache.hudi.common.config.TypedProperties;
@@ -40,6 +41,10 @@ public class ComplexKeyGenerator extends KeyGenerator {
 
   protected static final String NULL_RECORDKEY_PLACEHOLDER = "__null__";
   protected static final String EMPTY_RECORDKEY_PLACEHOLDER = "__empty__";
+
+  protected List<String> recordKeyFields;
+
+  protected List<String> partitionPathFields;
 
   protected final boolean hiveStylePartitioning;
 
@@ -93,5 +98,13 @@ public class ComplexKeyGenerator extends KeyGenerator {
     partitionPath.deleteCharAt(partitionPath.length() - 1);
 
     return new HoodieKey(recordKey.toString(), partitionPath.toString());
+  }
+
+  public List<String> getRecordKeyFields() {
+    return recordKeyFields;
+  }
+
+  public List<String> getPartitionPathFields() {
+    return partitionPathFields;
   }
 }

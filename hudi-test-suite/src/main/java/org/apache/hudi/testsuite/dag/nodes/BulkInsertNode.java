@@ -20,7 +20,7 @@ package org.apache.hudi.testsuite.dag.nodes;
 
 import org.apache.hudi.client.WriteStatus;
 import org.apache.hudi.common.util.Option;
-import org.apache.hudi.testsuite.DeltaWriteClient;
+import org.apache.hudi.testsuite.HoodieTestSuiteWriter;
 import org.apache.hudi.testsuite.configuration.DeltaConfig.Config;
 import org.apache.spark.api.java.JavaRDD;
 
@@ -31,10 +31,10 @@ public class BulkInsertNode extends InsertNode {
   }
 
   @Override
-  protected JavaRDD<WriteStatus> ingest(DeltaWriteClient deltaWriteClient, Option<String> commitTime)
+  protected JavaRDD<WriteStatus> ingest(HoodieTestSuiteWriter hoodieTestSuiteWriter, Option<String> commitTime)
       throws Exception {
     log.info("Execute bulk ingest node {}", this.getName());
-    return deltaWriteClient.bulkInsert(commitTime);
+    return hoodieTestSuiteWriter.bulkInsert(commitTime);
   }
 
 }

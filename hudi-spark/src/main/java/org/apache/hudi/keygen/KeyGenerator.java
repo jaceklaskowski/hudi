@@ -18,22 +18,15 @@
 
 package org.apache.hudi.keygen;
 
+import java.io.Serializable;
+import org.apache.avro.generic.GenericRecord;
 import org.apache.hudi.common.config.TypedProperties;
 import org.apache.hudi.common.model.HoodieKey;
-
-import org.apache.avro.generic.GenericRecord;
-
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * Abstract class to extend for plugging in extraction of {@link HoodieKey} from an Avro record.
  */
 public abstract class KeyGenerator implements Serializable {
-
-  protected List<String> recordKeyFields;
-
-  protected List<String> partitionPathFields;
 
   protected transient TypedProperties config;
 
@@ -46,11 +39,4 @@ public abstract class KeyGenerator implements Serializable {
    */
   public abstract HoodieKey getKey(GenericRecord record);
 
-  public List<String> getRecordKeyFields() {
-    return recordKeyFields;
-  }
-
-  public List<String> getPartitionPathFields() {
-    return partitionPathFields;
-  }
 }

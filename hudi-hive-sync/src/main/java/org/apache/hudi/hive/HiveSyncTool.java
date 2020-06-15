@@ -110,10 +110,13 @@ public class HiveSyncTool {
     boolean tableExists = hoodieHiveClient.doesTableExist(tableName);
 
     // check if the database exists else create it
-    if (cfg.isTestSuite) {
-      LOG.info("Test suite specific creation of DB " + cfg.isTestSuite);
+    try {
       hoodieHiveClient.updateHiveSQL("create database if not exists " + cfg.databaseName);
+    } catch (Exception e) {
+      // this is harmless since table creation will fail anyways, creation of DB is needed for in-memory testing
+      LOG.warn("Unable to create database", e);
     }
+
     // Get the parquet schema for this table looking at the latest commit
     MessageType schema = hoodieHiveClient.getDataSchema();
     // Sync schema if needed

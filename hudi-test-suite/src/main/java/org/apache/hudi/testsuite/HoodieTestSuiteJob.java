@@ -130,7 +130,7 @@ public class HoodieTestSuiteJob {
       log.info("Workflow Dag => " + DagUtils.convertDagToYaml(workflowDag));
       long startTime = System.currentTimeMillis();
       String schemaStr = schemaProvider.getSourceSchema().toString();
-      final DeltaWriteClient writer = new DeltaWriteClient(jsc, props, cfg, schemaStr);
+      final HoodieTestSuiteWriter writer = new HoodieTestSuiteWriter(jsc, props, cfg, schemaStr);
       final DeltaGenerator deltaGenerator = new DeltaGenerator(
           new DFSDeltaConfig(DeltaOutputMode.valueOf(cfg.outputTypeName), DeltaInputType.valueOf(cfg.inputFormatName),
               new SerializableConfiguration(jsc.hadoopConfiguration()), cfg.inputBasePath, cfg.targetBasePath,

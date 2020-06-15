@@ -38,13 +38,13 @@ public class ScheduleCompactNode extends DagNode<Option<String>> {
     // testing for now
     // Find the last commit and extra the extra metadata to be passed to the schedule compaction. This is
     // done to ensure the CHECKPOINT is correctly passed from commit to commit
-    HoodieTableMetaClient metaClient = new HoodieTableMetaClient(executionContext.getDeltaWriteClient().getConfiguration(),
-        executionContext.getDeltaWriteClient().getCfg().targetBasePath);
+    HoodieTableMetaClient metaClient = new HoodieTableMetaClient(executionContext.getHoodieTestSuiteWriter().getConfiguration(),
+        executionContext.getHoodieTestSuiteWriter().getCfg().targetBasePath);
     Option<HoodieInstant> lastInstant = metaClient.getActiveTimeline().getCommitsTimeline().lastInstant();
     if (lastInstant.isPresent()) {
       HoodieCommitMetadata metadata = org.apache.hudi.common.model.HoodieCommitMetadata.fromBytes(metaClient
           .getActiveTimeline().getInstantDetails(lastInstant.get()).get(), HoodieCommitMetadata.class);
-      Option<String> scheduledInstant = executionContext.getDeltaWriteClient().scheduleCompaction(Option.of(metadata
+      Option<String> scheduledInstant = executionContext.getHoodieTestSuiteWriter().scheduleCompaction(Option.of(metadata
               .getExtraMetadata()));
       if (scheduledInstant.isPresent()) {
         log.info("Scheduling compaction instant {}", scheduledInstant.get());

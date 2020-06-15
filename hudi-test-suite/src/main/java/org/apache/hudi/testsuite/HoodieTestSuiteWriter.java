@@ -52,7 +52,7 @@ import org.apache.spark.api.java.JavaSparkContext;
  * write operations into the target hudi dataset. Current supported writers are {@link HoodieDeltaStreamerWrapper}
  * and {@link HoodieWriteClient}.
  */
-public class DeltaWriteClient {
+public class HoodieTestSuiteWriter {
 
   private HoodieDeltaStreamerWrapper deltaStreamerWrapper;
   private HoodieWriteClient writeClient;
@@ -66,14 +66,14 @@ public class DeltaWriteClient {
   private static Set<String> VALID_DAG_NODES_TO_ALLOW_WRITE_CLIENT_IN_DELTASTREAMER_MODE = new HashSet<>(
       Arrays.asList(RollbackNode.class.getName(), CleanNode.class.getName(), ScheduleCompactNode.class.getName()));
 
-  public DeltaWriteClient(JavaSparkContext jsc, Properties props, HoodieTestSuiteConfig cfg, String schema) throws
+  public HoodieTestSuiteWriter(JavaSparkContext jsc, Properties props, HoodieTestSuiteConfig cfg, String schema) throws
       Exception {
     this(jsc, props, cfg, schema, true);
   }
 
-  public DeltaWriteClient(JavaSparkContext jsc, Properties props, HoodieTestSuiteConfig cfg, String schema,
+  public HoodieTestSuiteWriter(JavaSparkContext jsc, Properties props, HoodieTestSuiteConfig cfg, String schema,
       boolean rollbackInflight) throws Exception {
-    // We ensure that only 1 instance of HoodieWriteClient is instantiated for a DeltaWriteClient
+    // We ensure that only 1 instance of HoodieWriteClient is instantiated for a HoodieTestSuiteWriter
     // This does not instantiate a HoodieWriteClient until a
     // {@link HoodieDeltaStreamer#commit(HoodieWriteClient, JavaRDD, Option)} is invoked.
     this.deltaStreamerWrapper = new HoodieDeltaStreamerWrapper(cfg, jsc);

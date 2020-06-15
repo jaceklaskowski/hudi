@@ -19,7 +19,7 @@
 package org.apache.hudi.testsuite.dag;
 
 import java.io.Serializable;
-import org.apache.hudi.testsuite.DeltaWriteClient;
+import org.apache.hudi.testsuite.HoodieTestSuiteWriter;
 import org.apache.hudi.testsuite.dag.nodes.DagNode;
 import org.apache.hudi.testsuite.generator.DeltaGenerator;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -30,18 +30,18 @@ import org.apache.spark.api.java.JavaSparkContext;
  */
 public class ExecutionContext implements Serializable {
 
-  private DeltaWriteClient deltaWriteClient;
+  private HoodieTestSuiteWriter hoodieTestSuiteWriter;
   private DeltaGenerator deltaGenerator;
   private transient JavaSparkContext jsc;
 
-  public ExecutionContext(JavaSparkContext jsc, DeltaWriteClient deltaWriteClient, DeltaGenerator deltaGenerator) {
-    this.deltaWriteClient = deltaWriteClient;
+  public ExecutionContext(JavaSparkContext jsc, HoodieTestSuiteWriter hoodieTestSuiteWriter, DeltaGenerator deltaGenerator) {
+    this.hoodieTestSuiteWriter = hoodieTestSuiteWriter;
     this.deltaGenerator = deltaGenerator;
     this.jsc = jsc;
   }
 
-  public DeltaWriteClient getDeltaWriteClient() {
-    return deltaWriteClient;
+  public HoodieTestSuiteWriter getHoodieTestSuiteWriter() {
+    return hoodieTestSuiteWriter;
   }
 
   public DeltaGenerator getDeltaGenerator() {

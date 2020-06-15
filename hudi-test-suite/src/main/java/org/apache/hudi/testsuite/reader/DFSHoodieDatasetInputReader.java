@@ -162,9 +162,9 @@ public class DFSHoodieDatasetInputReader extends DFSDeltaInputReader {
         partitionToFileSlice, numFilesToUpdate, (int) numRecordsToUpdatePerFile));
     if (numRecordsToUpdate.isPresent() && numFiles.isPresent() && numFiles.get() != 0 && numRecordsToUpdate.get()
         != numRecordsToUpdatePerFile * numFiles.get()) {
-      updates = updates.union(projectSchema(generateUpdates(adjustedPartitionToFileIdCountMap,
-          partitionToFileSlice, numFilesToUpdate, (int) (numRecordsToUpdate.get() - numRecordsToUpdatePerFile * numFiles
-              .get()))));
+      long remainingRecordsToAdd = (numRecordsToUpdate.get() - (numRecordsToUpdatePerFile * numFiles.get()));
+      updates = updates.union(projectSchema(jsc.parallelize(generateUpdates(adjustedPartitionToFileIdCountMap,
+          partitionToFileSlice, numFilesToUpdate, (int) remainingRecordsToAdd).take((int) remainingRecordsToAdd))));
     }
     log.info("Finished generating updates");
     return updates;

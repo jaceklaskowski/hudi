@@ -71,8 +71,8 @@ public final class SourceFormatAdapter {
                     // pass in the schema for the Row-to-Avro conversion
                     // to avoid nullability mismatch between Avro schema and Row schema
                     ? AvroConversionUtils.createRdd(
-                    rdd, r.getSchemaProvider().getSourceSchema(),
-                    HOODIE_RECORD_STRUCT_NAME, HOODIE_RECORD_NAMESPACE).toJavaRDD()
+                        rdd, r.getSchemaProvider().getSourceSchema(),
+                        HOODIE_RECORD_STRUCT_NAME, HOODIE_RECORD_NAMESPACE).toJavaRDD()
                     : AvroConversionUtils.createRdd(
                         rdd, HOODIE_RECORD_STRUCT_NAME, HOODIE_RECORD_NAMESPACE).toJavaRDD()
             ))

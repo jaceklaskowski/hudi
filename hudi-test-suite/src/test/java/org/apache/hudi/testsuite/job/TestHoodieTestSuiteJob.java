@@ -94,7 +94,6 @@ public class TestHoodieTestSuiteJob extends UtilitiesTestBase {
     props.setProperty(DataSourceWriteOptions.HIVE_TABLE_OPT_KEY(), "table1");
     props.setProperty(DataSourceWriteOptions.HIVE_PARTITION_FIELDS_OPT_KEY(), "datestr");
     props.setProperty(DataSourceWriteOptions.KEYGENERATOR_CLASS_OPT_KEY(), TimestampBasedKeyGenerator.class.getName());
-    props.setProperty(DataSourceWriteOptions.HIVE_ENABLE_TEST_SUITE_OPT_KEY(), "true");
     UtilitiesTestBase.Helpers.savePropsToDFS(props, dfs, dfsBasePath + "/test-source"
         + ".properties");
 

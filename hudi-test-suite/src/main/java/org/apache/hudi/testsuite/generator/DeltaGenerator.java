@@ -31,7 +31,9 @@ import java.util.Map;
 import java.util.stream.StreamSupport;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.hudi.common.util.Option;
+import org.apache.hudi.keygen.ComplexKeyGenerator;
 import org.apache.hudi.keygen.KeyGenerator;
+import org.apache.hudi.keygen.SimpleKeyGenerator;
 import org.apache.hudi.testsuite.configuration.DFSDeltaConfig;
 import org.apache.hudi.testsuite.configuration.DeltaConfig;
 import org.apache.hudi.testsuite.configuration.DeltaConfig.Config;
@@ -74,8 +76,10 @@ public class DeltaGenerator implements Serializable {
     this.jsc = jsc;
     this.sparkSession = sparkSession;
     this.schemaStr = schemaStr;
-    this.recordRowKeyFieldNames = keyGenerator.getRecordKeyFields();
-    this.partitionPathFieldNames = keyGenerator.getPartitionPathFields();
+    this.recordRowKeyFieldNames = keyGenerator instanceof ComplexKeyGenerator ? ((ComplexKeyGenerator) keyGenerator)
+        .getRecordKeyFields() : Arrays.asList(((SimpleKeyGenerator) keyGenerator).getRecordKeyField());
+    this.partitionPathFieldNames = keyGenerator instanceof ComplexKeyGenerator ? ((ComplexKeyGenerator) keyGenerator)
+        .getPartitionPathFields() : Arrays.asList(((SimpleKeyGenerator) keyGenerator).getPartitionPathField());
   }
 
   public JavaRDD<DeltaWriteStats> writeRecords(JavaRDD<GenericRecord> records) {

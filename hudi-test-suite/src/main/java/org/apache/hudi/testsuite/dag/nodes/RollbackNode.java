@@ -35,12 +35,12 @@ public class RollbackNode extends DagNode<Option<HoodieInstant>> {
     log.info("Executing rollback node {}", this.getName());
     // Can only be done with an instantiation of a new WriteClient hence cannot be done during DeltaStreamer
     // testing for now
-    HoodieTableMetaClient metaClient = new HoodieTableMetaClient(executionContext.getDeltaWriteClient().getConfiguration(),
-        executionContext.getDeltaWriteClient().getCfg().targetBasePath);
+    HoodieTableMetaClient metaClient = new HoodieTableMetaClient(executionContext.getHoodieTestSuiteWriter().getConfiguration(),
+        executionContext.getHoodieTestSuiteWriter().getCfg().targetBasePath);
     Option<HoodieInstant> lastInstant = metaClient.getActiveTimeline().getCommitsTimeline().lastInstant();
     if (lastInstant.isPresent()) {
       log.info("Rolling back last instant {}", lastInstant.get());
-      executionContext.getDeltaWriteClient().getWriteClient(this).rollback(lastInstant.get().getTimestamp());
+      executionContext.getHoodieTestSuiteWriter().getWriteClient(this).rollback(lastInstant.get().getTimestamp());
       this.result = lastInstant;
     }
   }

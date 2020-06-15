@@ -34,13 +34,13 @@ public class CompactNode extends DagNode<JavaRDD<WriteStatus>> {
 
   @Override
   public void execute(ExecutionContext executionContext) throws Exception {
-    HoodieTableMetaClient metaClient = new HoodieTableMetaClient(executionContext.getDeltaWriteClient().getConfiguration(),
-        executionContext.getDeltaWriteClient().getCfg().targetBasePath);
+    HoodieTableMetaClient metaClient = new HoodieTableMetaClient(executionContext.getHoodieTestSuiteWriter().getConfiguration(),
+        executionContext.getHoodieTestSuiteWriter().getCfg().targetBasePath);
     Option<HoodieInstant> lastInstant = metaClient.getActiveTimeline()
         .getCommitsAndCompactionTimeline().filterPendingCompactionTimeline().lastInstant();
     if (lastInstant.isPresent()) {
       log.info("Compacting instant {}", lastInstant.get());
-      this.result = executionContext.getDeltaWriteClient().compact(Option.of(lastInstant.get().getTimestamp()));
+      this.result = executionContext.getHoodieTestSuiteWriter().compact(Option.of(lastInstant.get().getTimestamp()));
     }
   }
 

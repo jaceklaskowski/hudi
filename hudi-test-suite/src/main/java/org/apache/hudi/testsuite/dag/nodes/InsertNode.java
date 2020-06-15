@@ -20,7 +20,7 @@ package org.apache.hudi.testsuite.dag.nodes;
 
 import org.apache.hudi.client.WriteStatus;
 import org.apache.hudi.common.util.Option;
-import org.apache.hudi.testsuite.DeltaWriteClient;
+import org.apache.hudi.testsuite.HoodieTestSuiteWriter;
 import org.apache.hudi.testsuite.configuration.DeltaConfig.Config;
 import org.apache.hudi.testsuite.dag.ExecutionContext;
 import org.apache.hudi.testsuite.generator.DeltaGenerator;
@@ -38,9 +38,9 @@ public class InsertNode extends DagNode<JavaRDD<WriteStatus>> {
     log.info("Configs : {}", this.config);
     if (!config.isDisableIngest()) {
       log.info("Inserting input data {}", this.getName());
-      Option<String> commitTime = executionContext.getDeltaWriteClient().startCommit();
-      JavaRDD<WriteStatus> writeStatus = ingest(executionContext.getDeltaWriteClient(), commitTime);
-      executionContext.getDeltaWriteClient().commit(writeStatus, commitTime);
+      Option<String> commitTime = executionContext.getHoodieTestSuiteWriter().startCommit();
+      JavaRDD<WriteStatus> writeStatus = ingest(executionContext.getHoodieTestSuiteWriter(), commitTime);
+      executionContext.getHoodieTestSuiteWriter().commit(writeStatus, commitTime);
       this.result = writeStatus;
     }
   }
@@ -52,9 +52,9 @@ public class InsertNode extends DagNode<JavaRDD<WriteStatus>> {
     }
   }
 
-  protected JavaRDD<WriteStatus> ingest(DeltaWriteClient deltaWriteClient,
+  protected JavaRDD<WriteStatus> ingest(HoodieTestSuiteWriter hoodieTestSuiteWriter,
       Option<String> commitTime) throws Exception {
-    return deltaWriteClient.insert(commitTime);
+    return hoodieTestSuiteWriter.insert(commitTime);
   }
 
 }

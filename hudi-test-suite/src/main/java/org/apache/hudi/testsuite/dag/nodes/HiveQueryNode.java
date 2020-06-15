@@ -42,14 +42,14 @@ public class HiveQueryNode extends DagNode<Boolean> {
   @Override
   public void execute(ExecutionContext executionContext) throws Exception {
     log.info("Executing hive query node {}", this.getName());
-    this.hiveServiceProvider.startLocalHiveServiceIfNeeded(executionContext.getDeltaWriteClient().getConfiguration());
+    this.hiveServiceProvider.startLocalHiveServiceIfNeeded(executionContext.getHoodieTestSuiteWriter().getConfiguration());
     // this.hiveServiceProvider.syncToLocalHiveIfNeeded(writer);
     HiveSyncConfig hiveSyncConfig = DataSourceUtils
-        .buildHiveSyncConfig(executionContext.getDeltaWriteClient().getDeltaStreamerWrapper()
+        .buildHiveSyncConfig(executionContext.getHoodieTestSuiteWriter().getDeltaStreamerWrapper()
                 .getDeltaSyncService().getDeltaSync().getProps(),
-            executionContext.getDeltaWriteClient().getDeltaStreamerWrapper()
+            executionContext.getHoodieTestSuiteWriter().getDeltaStreamerWrapper()
                 .getDeltaSyncService().getDeltaSync().getCfg().targetBasePath);
-    this.hiveServiceProvider.syncToLocalHiveIfNeeded(executionContext.getDeltaWriteClient());
+    this.hiveServiceProvider.syncToLocalHiveIfNeeded(executionContext.getHoodieTestSuiteWriter());
     Connection con = DriverManager.getConnection(hiveSyncConfig.jdbcUrl, hiveSyncConfig.hiveUser,
         hiveSyncConfig.hivePass);
     Statement stmt = con.createStatement();

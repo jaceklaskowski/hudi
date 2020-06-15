@@ -60,11 +60,6 @@ public class QuickstartUtils {
     }
   }
 
-  public static List<String> convertToStringList(List<HoodieRecord> records) {
-    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
-        .collect(Collectors.toList());
-  }
-
   public static Map<String, String> getQuickstartWriteConfigs() {
     Map<String, String> demoConfigs = new HashMap<>();
     demoConfigs.put("hoodie.insert.shuffle.parallelism", "2");

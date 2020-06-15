@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import org.apache.hudi.exception.HoodieException;
-import org.apache.hudi.testsuite.DeltaWriteClient;
+import org.apache.hudi.testsuite.HoodieTestSuiteWriter;
 import org.apache.hudi.testsuite.dag.ExecutionContext;
 import org.apache.hudi.testsuite.dag.WorkflowDag;
 import org.apache.hudi.testsuite.dag.nodes.DagNode;
@@ -43,9 +43,9 @@ public class DagScheduler {
   private WorkflowDag workflowDag;
   private ExecutionContext executionContext;
 
-  public DagScheduler(WorkflowDag workflowDag, DeltaWriteClient deltaWriteClient, DeltaGenerator deltaGenerator) {
+  public DagScheduler(WorkflowDag workflowDag, HoodieTestSuiteWriter hoodieTestSuiteWriter, DeltaGenerator deltaGenerator) {
     this.workflowDag = workflowDag;
-    this.executionContext = new ExecutionContext(null, deltaWriteClient, deltaGenerator);
+    this.executionContext = new ExecutionContext(null, hoodieTestSuiteWriter, deltaGenerator);
   }
 
   public void schedule() throws Exception {

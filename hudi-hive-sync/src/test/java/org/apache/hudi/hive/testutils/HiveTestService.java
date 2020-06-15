@@ -18,6 +18,7 @@
 
 package org.apache.hudi.hive.testutils;
 
+import org.apache.hudi.common.model.HoodieTestUtils;
 import org.apache.hudi.common.util.FileIOUtils;
 
 import org.apache.hadoop.conf.Configuration;
@@ -89,7 +90,7 @@ public class HiveTestService {
     Objects.requireNonNull(workDir, "The work dir must be set before starting cluster.");
 
     if (hadoopConf == null) {
-      hadoopConf = new Configuration();
+      hadoopConf = HoodieTestUtils.getDefaultHadoopConf();
     }
 
     String localHiveLocation = getHiveLocation(workDir);

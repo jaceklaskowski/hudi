@@ -34,9 +34,9 @@ public class HiveSyncNode extends DagNode<Boolean> {
   @Override
   public void execute(ExecutionContext executionContext) throws Exception {
     log.info("Executing hive sync node");
-    this.hiveServiceProvider.startLocalHiveServiceIfNeeded(executionContext.getDeltaWriteClient().getConfiguration());
-    this.hiveServiceProvider.syncToLocalHiveIfNeeded(executionContext.getDeltaWriteClient());
-    executionContext.getDeltaWriteClient().getDeltaStreamerWrapper().getDeltaSyncService().getDeltaSync().syncHive();
+    this.hiveServiceProvider.startLocalHiveServiceIfNeeded(executionContext.getHoodieTestSuiteWriter().getConfiguration());
+    this.hiveServiceProvider.syncToLocalHiveIfNeeded(executionContext.getHoodieTestSuiteWriter());
+    executionContext.getHoodieTestSuiteWriter().getDeltaStreamerWrapper().getDeltaSyncService().getDeltaSync().syncHive();
     this.hiveServiceProvider.stopLocalHiveServiceIfNeeded();
   }
 

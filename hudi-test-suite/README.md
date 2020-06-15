@@ -116,45 +116,6 @@ shell$ ./prepare_integration_suite.sh
 ....
 ....
 Final command : mvn clean install -DskipTests
-[INFO] ------------------------------------------------------------------------
-[INFO] Reactor Summary:
-[INFO]
-[INFO] Hudi ............................................... SUCCESS [  2.749 s]
-[INFO] hudi-common ........................................ SUCCESS [ 12.711 s]
-[INFO] hudi-timeline-service .............................. SUCCESS [  1.924 s]
-[INFO] hudi-hadoop-mr ..................................... SUCCESS [  7.203 s]
-[INFO] hudi-client ........................................ SUCCESS [ 10.486 s]
-[INFO] hudi-hive .......................................... SUCCESS [  5.159 s]
-[INFO] hudi-spark ......................................... SUCCESS [ 34.499 s]
-[INFO] hudi-utilities ..................................... SUCCESS [  8.626 s]
-[INFO] hudi-cli ........................................... SUCCESS [ 14.921 s]
-[INFO] hudi-test-suite ......................................... SUCCESS [  7.706 s]
-[INFO] hudi-hadoop-mr-bundle .............................. SUCCESS [  1.873 s]
-[INFO] hudi-hive-bundle ................................... SUCCESS [  1.508 s]
-[INFO] hudi-spark-bundle .................................. SUCCESS [ 17.432 s]
-[INFO] hudi-presto-bundle ................................. SUCCESS [  1.309 s]
-[INFO] hudi-utilities-bundle .............................. SUCCESS [ 18.386 s]
-[INFO] hudi-timeline-server-bundle ........................ SUCCESS [  8.600 s]
-[INFO] hudi-test-suite-bundle .................................. SUCCESS [ 38.348 s]
-[INFO] hudi-hadoop-docker ................................. SUCCESS [  2.053 s]
-[INFO] hudi-hadoop-base-docker ............................ SUCCESS [  0.806 s]
-[INFO] hudi-hadoop-namenode-docker ........................ SUCCESS [  0.302 s]
-[INFO] hudi-hadoop-datanode-docker ........................ SUCCESS [  0.403 s]
-[INFO] hudi-hadoop-history-docker ......................... SUCCESS [  0.447 s]
-[INFO] hudi-hadoop-hive-docker ............................ SUCCESS [  1.534 s]
-[INFO] hudi-hadoop-sparkbase-docker ....................... SUCCESS [  0.315 s]
-[INFO] hudi-hadoop-sparkmaster-docker ..................... SUCCESS [  0.407 s]
-[INFO] hudi-hadoop-sparkworker-docker ..................... SUCCESS [  0.447 s]
-[INFO] hudi-hadoop-sparkadhoc-docker ...................... SUCCESS [  0.410 s]
-[INFO] hudi-hadoop-presto-docker .......................... SUCCESS [  0.697 s]
-[INFO] hudi-integ-test .................................... SUCCESS [01:02 min]
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time: 04:23 min
-[INFO] Finished at: 2019-11-02T23:56:48-07:00
-[INFO] Final Memory: 234M/1582M
-[INFO] ------------------------------------------------------------------------
 ```
 
 ## Running on the cluster or in your local machine

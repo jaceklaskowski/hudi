@@ -22,7 +22,7 @@ import java.io.IOException;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hive.service.server.HiveServer2;
 import org.apache.hudi.hive.testutils.HiveTestService;
-import org.apache.hudi.testsuite.DeltaWriteClient;
+import org.apache.hudi.testsuite.HoodieTestSuiteWriter;
 import org.apache.hudi.testsuite.configuration.DeltaConfig.Config;
 
 /**
@@ -45,7 +45,7 @@ public class HiveServiceProvider {
     }
   }
 
-  public void syncToLocalHiveIfNeeded(DeltaWriteClient writer) {
+  public void syncToLocalHiveIfNeeded(HoodieTestSuiteWriter writer) {
     if (this.config.isHiveLocal()) {
       writer.getDeltaStreamerWrapper().getDeltaSyncService().getDeltaSync()
           .syncHive(getLocalHiveServer().getHiveConf());
